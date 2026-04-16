@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.math.BigDecimal;
+
 @Document(collection = "products")
 @Data
 @NoArgsConstructor
@@ -28,5 +30,7 @@ public class Product {
 
     @Field(value = "quantity")
     private Integer quantity;
+
+    private BigDecimal price;
 
 }

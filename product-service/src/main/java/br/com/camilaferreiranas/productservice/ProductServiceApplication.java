@@ -9,11 +9,9 @@ import org.springframework.core.env.Environment;
 public class ProductServiceApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = SpringApplication.run(ProductServiceApplication.class, args);
-        Environment env = ctx.getEnvironment();
+        SpringApplication.run(ProductServiceApplication.class, args);
 
-        System.out.println(">>> MONGO URI: " + env.getProperty("spring.data.mongodb.uri"));
     }
-    }
+}
 
 

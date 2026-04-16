@@ -8,6 +8,7 @@ import br.com.camilaferreiranas.productservice.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -28,37 +29,56 @@ public class ProductServiceImpl implements ProductService{
         product.setDescription(dto.description());
         product.setCategory(dto.category());
         product.setQuantity(dto.quantity());
+        product.setPrice(dto.price());
         var response = repository.save(product);
         return new DefaultResponseDTO(response.getId(), "Produto cadastrado com sucesso") ;
     }
 
     @Override
     public List<Product> listAll() {
-        return List.of();
+       return repository.findAll();
     }
 
     @Override
     public Product findById(String id) {
-        return null;
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
     @Override
-    public Product findByCategory(Category category) {
-        return null;
+    public List<Product> findByCategory(Category category) {
+        return repository.findByCategory(category);
     }
 
     @Override
     public Product findByTitle(String title) {
-        return null;
+        return repository.findByTitle(title).orElseThrow(() -> new RuntimeException("Title not found "));
     }
 
     @Override
     public DefaultResponseDTO update(String id, ProductRequestDTO dto) {
-        return null;
+        Product entityToSave = repository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        entityToSave.setPrice(dto.price());
+        entityToSave.setTitle(dto.title());
+        entityToSave.setCategory(dto.category());
+        entityToSave.setTitle(dto.title());
+        entityToSave.setDescription(dto.description());
+
+        var response = repository.save(entityToSave);
+        return new DefaultResponseDTO(response.getId(), "Product was updated");
     }
 
     @Override
     public void changeQuantity(String id, Integer quantity) {
+        Product entityToSave = repository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        if(quantity < 0 ) {
+            throw new RuntimeException("Quantity can not be less than zero");
+        }
+        entityToSave.setQuantity(quantity);
+        repository.save(entityToSave);
+    }
 
+    @Override
+    public List<Product> findByTitlePart(String title) {
+        return  repository.findByTitlePart(title);
     }
 }

@@ -12,8 +12,9 @@ public interface ProductService {
     DefaultResponseDTO save(ProductRequestDTO dto);
     List<Product> listAll();
     Product findById(String id);
-    Product findByCategory(Category category);
+    List<Product> findByCategory(Category category);
     Product findByTitle(String title);
     DefaultResponseDTO update(String id, ProductRequestDTO dto);
     void changeQuantity(String id, Integer quantity);
+    List<Product> findByTitlePart(String title);
 }
