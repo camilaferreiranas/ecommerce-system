@@ -1,10 +1,15 @@
 package br.com.camilaferreiranas.productservice.services;
 
+import br.com.camilaferreiranas.productservice.exception.ProductNotFoundException;
+import br.com.camilaferreiranas.productservice.exception.QuantityNotAcceptedException;
 import br.com.camilaferreiranas.productservice.model.dto.DefaultResponseDTO;
 import br.com.camilaferreiranas.productservice.model.dto.ProductRequestDTO;
 import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
 import br.com.camilaferreiranas.productservice.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,13 +40,15 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> listAll() {
-       return repository.findAll();
+    public Page<Product> listAll(Integer page, Integer size, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
+
+       return repository.findAll(pageRequest);
     }
 
     @Override
     public Product findById(String id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        return repository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
     @Override
@@ -51,12 +58,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product findByTitle(String title) {
-        return repository.findByTitle(title).orElseThrow(() -> new RuntimeException("Title not found "));
+        return repository.findByTitle(title).orElseThrow(() -> new ProductNotFoundException("Title not found "));
     }
 
     @Override
     public DefaultResponseDTO update(String id, ProductRequestDTO dto) {
-        Product entityToSave = repository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        Product entityToSave = repository.findById(id).orElseThrow(ProductNotFoundException::new);
         entityToSave.setPrice(dto.price());
         entityToSave.setTitle(dto.title());
         entityToSave.setCategory(dto.category());
@@ -69,7 +76,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void changeQuantity(String id, Integer quantity) {
-        Product entityToSave = repository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        Product entityToSave = repository.findById(id).orElseThrow(QuantityNotAcceptedException::new);
         if(quantity < 0 ) {
             throw new RuntimeException("Quantity can not be less than zero");
         }

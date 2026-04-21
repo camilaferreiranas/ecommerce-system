@@ -6,6 +6,7 @@ import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
 import br.com.camilaferreiranas.productservice.services.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,8 +38,11 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Product>> listAll() {
-        return ResponseEntity.ok(service.listAll());
+    public ResponseEntity<Page<Product>> listAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                 @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                 @RequestParam(value = "orderBy", defaultValue = "title") String orderBy,
+                                                 @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        return ResponseEntity.ok(service.listAll(page, size, orderBy, direction));
     }
 
     @GetMapping("/findById/{id}")

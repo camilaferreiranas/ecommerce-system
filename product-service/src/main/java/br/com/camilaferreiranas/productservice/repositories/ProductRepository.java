@@ -4,6 +4,8 @@ import br.com.camilaferreiranas.productservice.model.dto.InventoryResponse;
 import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
 import feign.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -33,6 +35,7 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     } )
     InventoryResponse inventoryTotalPrice();
 
+    Page<Product> findAll(Pageable pageable);
 
 
 

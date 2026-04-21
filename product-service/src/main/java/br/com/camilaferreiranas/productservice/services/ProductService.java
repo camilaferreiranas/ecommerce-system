@@ -4,13 +4,14 @@ import br.com.camilaferreiranas.productservice.model.dto.DefaultResponseDTO;
 import br.com.camilaferreiranas.productservice.model.dto.ProductRequestDTO;
 import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ProductService {
 
     DefaultResponseDTO save(ProductRequestDTO dto);
-    List<Product> listAll();
+    Page<Product> listAll(Integer page, Integer size, String orderBy, String direction);
     Product findById(String id);
     List<Product> findByCategory(Category category);
     Product findByTitle(String title);
