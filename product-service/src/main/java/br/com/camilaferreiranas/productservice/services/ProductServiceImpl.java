@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product findByTitle(String title) {
-        return repository.findByTitle(title).orElseThrow(() -> new ProductNotFoundException("Title not found "));
+        return repository.findByTitle(title).orElseThrow(ProductNotFoundException::new);
     }
 
     @Override
