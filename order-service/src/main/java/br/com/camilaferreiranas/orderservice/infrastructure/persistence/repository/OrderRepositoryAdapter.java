@@ -11,7 +11,7 @@ import java.util.UUID;
 @Component
 public class OrderRepositoryAdapter implements OrderRepository {
 
-    
+
     @Override
     public Order save(Order order) {
         return null;
