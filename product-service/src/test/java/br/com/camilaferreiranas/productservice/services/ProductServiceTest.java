@@ -1,6 +1,8 @@
 package br.com.camilaferreiranas.productservice.services;
 
 import br.com.camilaferreiranas.productservice.exception.ProductNotFoundException;
+import br.com.camilaferreiranas.productservice.model.dto.DefaultResponseDTO;
+import br.com.camilaferreiranas.productservice.model.dto.ProductRequestDTO;
 import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
 import br.com.camilaferreiranas.productservice.repositories.ProductRepository;
@@ -43,7 +45,7 @@ public class ProductServiceTest {
 
         String title = faker.book().title();
         when(repository.findByTitle(title)).thenReturn(Optional.of(
-                new Product(faker.idNumber().valid(), faker.chuckNorris().fact(), faker.chuckNorris().fact(),
+                new Product("8172971", faker.chuckNorris().fact(), faker.chuckNorris().fact(),
                         Category.BOOKS, faker.number().randomDigit(), BigDecimal.ONE)));
 
         Product response = service.findByTitle(title);
@@ -59,5 +61,23 @@ public class ProductServiceTest {
 
         assertThrows(ProductNotFoundException.class, () -> service.findByTitle(title));
         verify(repository).findByTitle(title);
+    }
+
+
+    @Test
+    void shouldSaveProduct() {
+        var product = new ProductRequestDTO(faker.harryPotter().book(),
+                faker.hacker().abbreviation(), Category.BOOKS, 1, BigDecimal.ONE);
+        var productEntity = new Product("8172971", faker.chuckNorris().fact(), faker.hacker().abbreviation(),
+                Category.ELECTRONICS, 1, BigDecimal.ONE);
+
+
+        when(repository.save(any(Product.class))).thenReturn(productEntity);
+        DefaultResponseDTO response = service.save(product);
+
+        assertNotNull(response);
+        verify(repository, times(1)).save(any(Product.class));
+
+
     }
 }
