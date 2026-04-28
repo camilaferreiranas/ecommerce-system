@@ -26,6 +26,10 @@ public class Product {
     private String description;
 
 
+    @Field(value = "image")
+    private String imageUrl;
+
+
     private Category category;
 
     @Field(value = "quantity")

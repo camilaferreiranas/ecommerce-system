@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService{
         product.setCategory(dto.category());
         product.setQuantity(dto.quantity());
         product.setPrice(dto.price());
+        product.setImageUrl(dto.imageUrl());
         var response = repository.save(product);
         return new DefaultResponseDTO(response.getId(), "Produto cadastrado com sucesso") ;
     }
@@ -69,6 +70,7 @@ public class ProductServiceImpl implements ProductService{
         entityToSave.setCategory(dto.category());
         entityToSave.setTitle(dto.title());
         entityToSave.setDescription(dto.description());
+        entityToSave.setImageUrl(dto.imageUrl());
 
         var response = repository.save(entityToSave);
         return new DefaultResponseDTO(response.getId(), "Product was updated");

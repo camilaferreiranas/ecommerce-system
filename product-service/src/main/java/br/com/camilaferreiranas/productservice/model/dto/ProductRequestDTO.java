@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public record ProductRequestDTO(@NotBlank(message = "Title can not be empty") String title,
                                 String description,
                                 Category category,
+                                String imageUrl,
                                 @Min(value = 1, message = "Quantity must be greater than 1") Integer quantity,
                                 @Min(value = 1, message = "Price must be greater that 1") BigDecimal price) {
 }
