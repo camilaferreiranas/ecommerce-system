@@ -3,6 +3,7 @@ package br.com.camilaferreiranas.orderservice.domain.model;
 import br.com.camilaferreiranas.orderservice.domain.enums.Status;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,14 +12,14 @@ public class Order {
     private String description;
     private User user;
     private BigDecimal total;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
     private Status status;
 
     public Order() {
     }
 
-    public Order(UUID id, String description, User user, BigDecimal total, LocalDateTime createdAt, LocalDateTime updatedAt, Status status) {
+    public Order(UUID id, String description, User user, BigDecimal total, Instant createdAt, Instant updatedAt, Status status) {
         this.id = id;
         this.description = description;
         this.user = user;
@@ -59,19 +60,19 @@ public class Order {
         this.total = total;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Instant getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
 

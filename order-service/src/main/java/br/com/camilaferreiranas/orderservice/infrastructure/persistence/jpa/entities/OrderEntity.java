@@ -3,7 +3,9 @@ package br.com.camilaferreiranas.orderservice.infrastructure.persistence.jpa.ent
 import br.com.camilaferreiranas.orderservice.domain.enums.Status;
 import br.com.camilaferreiranas.orderservice.domain.model.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,6 +17,8 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "orders")
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderEntity {
 
     @Id
@@ -27,7 +31,7 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
 
     private BigDecimal total;

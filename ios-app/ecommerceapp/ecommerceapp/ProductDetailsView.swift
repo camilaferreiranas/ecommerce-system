@@ -50,7 +50,7 @@ struct ProductDetailsView: View {
                     }
                     
                     HStack {
-                        Text("Disponível")
+                        Text("Available")
                         Spacer()
                         Text("\(product.quantity)")
                             .bold()
@@ -65,7 +65,7 @@ struct ProductDetailsView: View {
             }
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Preço")
+                    Text("Price")
                         .font(.caption)
                     
                     Text(product.price, format: .currency(code: "BRL"))
@@ -77,7 +77,7 @@ struct ProductDetailsView: View {
                 Button(action: {
                     comprar()
                 }) {
-                    Text("Comprar")
+                    Text("Update")
                         .bold()
                         .frame(maxWidth: .infinity)
                         .padding()
