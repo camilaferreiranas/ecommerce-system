@@ -12,6 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -47,4 +48,11 @@ public class OrderEntity {
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private Status status;
+
+    @OneToMany(
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OrderItemEntity> orderItemEntities;
 }

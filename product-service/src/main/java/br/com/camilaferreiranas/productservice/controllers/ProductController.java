@@ -1,6 +1,7 @@
 package br.com.camilaferreiranas.productservice.controllers;
 
 import br.com.camilaferreiranas.productservice.model.dto.DefaultResponseDTO;
+import br.com.camilaferreiranas.productservice.model.dto.ProductItemDTO;
 import br.com.camilaferreiranas.productservice.model.dto.ProductRequestDTO;
 import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
@@ -75,5 +76,11 @@ public class ProductController {
     @GetMapping("/find/{title}")
     public ResponseEntity<List<Product>> listTitles(@PathVariable("title") String title) {
         return ResponseEntity.ok(service.findByTitlePart(title));
+    }
+
+    @PostMapping("/findBatch")
+    public ResponseEntity<List<Product>> listByBatch(@RequestBody List<ProductItemDTO> items) {
+        
+        return ResponseEntity.ok(service.findByBatch(items));
     }
 }

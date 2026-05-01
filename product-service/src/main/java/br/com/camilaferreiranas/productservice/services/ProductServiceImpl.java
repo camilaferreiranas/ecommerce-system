@@ -3,6 +3,7 @@ package br.com.camilaferreiranas.productservice.services;
 import br.com.camilaferreiranas.productservice.exception.ProductNotFoundException;
 import br.com.camilaferreiranas.productservice.exception.QuantityNotAcceptedException;
 import br.com.camilaferreiranas.productservice.model.dto.DefaultResponseDTO;
+import br.com.camilaferreiranas.productservice.model.dto.ProductItemDTO;
 import br.com.camilaferreiranas.productservice.model.dto.ProductRequestDTO;
 import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,5 +91,15 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<Product> findByTitlePart(String title) {
         return  repository.findByTitlePart(title);
+    }
+
+    @Override
+    public List<Product> findByBatch(List<ProductItemDTO> items) {
+        List<Product> listItems = new ArrayList<>();
+        for (ProductItemDTO products: items) {
+            var item = repository.findById(products.id());
+            item.ifPresent(listItems::add);
+        }
+        return listItems;
     }
 }

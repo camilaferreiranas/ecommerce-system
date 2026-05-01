@@ -5,6 +5,7 @@ import br.com.camilaferreiranas.orderservice.domain.enums.Status;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class Order {
@@ -15,11 +16,12 @@ public class Order {
     private Instant createdAt;
     private Instant updatedAt;
     private Status status;
+    private List<OrderItem> orderItems;
 
     public Order() {
     }
 
-    public Order(UUID id, String description, User user, BigDecimal total, Instant createdAt, Instant updatedAt, Status status) {
+    public Order(UUID id, String description, User user, BigDecimal total, Instant createdAt, Instant updatedAt, Status status, List<OrderItem> orderItems) {
         this.id = id;
         this.description = description;
         this.user = user;
@@ -27,7 +29,9 @@ public class Order {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.status = status;
+        this.orderItems = orderItems;
     }
+
     public UUID getId() {
         return id;
     }
@@ -82,5 +86,14 @@ public class Order {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

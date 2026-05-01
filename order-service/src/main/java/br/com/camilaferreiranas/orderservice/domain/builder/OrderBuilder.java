@@ -2,12 +2,14 @@ package br.com.camilaferreiranas.orderservice.domain.builder;
 
 import br.com.camilaferreiranas.orderservice.domain.enums.Status;
 import br.com.camilaferreiranas.orderservice.domain.model.Order;
+import br.com.camilaferreiranas.orderservice.domain.model.OrderItem;
 import br.com.camilaferreiranas.orderservice.domain.model.User;
 import br.com.camilaferreiranas.orderservice.infrastructure.builder.OrderEntityBuilder;
 import br.com.camilaferreiranas.orderservice.infrastructure.persistence.jpa.entities.UserEntity;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 public class OrderBuilder {
@@ -20,6 +22,7 @@ public class OrderBuilder {
     private Instant createdAt;
     private Instant updatedAt;
     private Status status;
+    private List<OrderItem> item;
 
 
     public OrderBuilder id(UUID id) {
@@ -59,7 +62,13 @@ public class OrderBuilder {
     }
 
 
+    public OrderBuilder items(List<OrderItem> items) {
+        this.item = items;
+        return this;
+    }
+
+
     public Order of() {
-        return new Order(id, description, user, total, createdAt, updatedAt, status);
+        return new Order(id, description, user, total, createdAt, updatedAt, status, item);
     }
 }

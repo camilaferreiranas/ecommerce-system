@@ -1,6 +1,7 @@
 package br.com.camilaferreiranas.productservice.services;
 
 import br.com.camilaferreiranas.productservice.model.dto.DefaultResponseDTO;
+import br.com.camilaferreiranas.productservice.model.dto.ProductItemDTO;
 import br.com.camilaferreiranas.productservice.model.dto.ProductRequestDTO;
 import br.com.camilaferreiranas.productservice.model.entities.Product;
 import br.com.camilaferreiranas.productservice.model.enums.Category;
@@ -18,4 +19,5 @@ public interface ProductService {
     DefaultResponseDTO update(String id, ProductRequestDTO dto);
     void changeQuantity(String id, Integer quantity);
     List<Product> findByTitlePart(String title);
+    List<Product> findByBatch(List<ProductItemDTO> items);
 }

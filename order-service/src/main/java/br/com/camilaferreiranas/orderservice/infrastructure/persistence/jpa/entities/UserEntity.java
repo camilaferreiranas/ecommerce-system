@@ -15,6 +15,7 @@ public class UserEntity {
     private String name;
     private String telephone;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+
     private String email;
 }
