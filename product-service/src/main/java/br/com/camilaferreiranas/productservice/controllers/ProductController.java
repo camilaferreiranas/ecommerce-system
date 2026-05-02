@@ -80,7 +80,7 @@ public class ProductController {
 
     @PostMapping("/findBatch")
     public ResponseEntity<List<Product>> listByBatch(@RequestBody List<ProductItemDTO> items) {
-        
+
         return ResponseEntity.ok(service.findByBatch(items));
     }
 }
