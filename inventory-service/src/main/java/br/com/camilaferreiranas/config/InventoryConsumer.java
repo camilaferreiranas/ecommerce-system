@@ -1,5 +1,6 @@
 package br.com.camilaferreiranas.config;
 
+import br.com.camilaferreiranas.model.OrderCreatedEvent;
 import br.com.camilaferreiranas.service.InventoryService;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
@@ -13,8 +14,8 @@ public class InventoryConsumer {
     }
 
     @Incoming("order-status")
-    public void consume(String message) {
+    public void consume(OrderCreatedEvent event) {
 
-        inventoryService.checkInventory();
+        inventoryService.checkInventory(event);
     }
 }
